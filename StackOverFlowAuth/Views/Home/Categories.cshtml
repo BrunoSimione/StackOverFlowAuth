@@ -1,0 +1,25 @@
+﻿@model IEnumerable<StackOverFlowAuth.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<p>
+    <!-- @Html.ActionLink("Create New", "Create") -->
+</p>
+<table class="table table-hover">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+                .
+                @Html.ActionLink(item.Name, "List", "Questions", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>

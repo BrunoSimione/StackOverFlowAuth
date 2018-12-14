@@ -1,0 +1,47 @@
+﻿@model IEnumerable<StackOverFlowAuth.Models.Question>
+
+@{
+    ViewBag.Title = "Questions";
+}
+
+<h2>Questions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Questions")
+</p>
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div id="votes_div">
+                    <span class="badge">@Html.DisplayFor(modelItem => item.VoteCount)</span> Votes
+                </div>
+
+            </td>
+            <td>
+                <div id="votes_div">
+                    <span class="badge">@Html.DisplayFor(modelItem => item.AnswerCount)</span> Answers
+                </div>
+            </td>
+            <td>
+                <div id="votes_div">
+                    <span class="badge">@Html.DisplayFor(modelItem => item.ViewCount)</span> Views
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink(item.QuestionName, "AnswerQuestion", "Questions", new { id = item.Id }, null) <br />
+                <span class="label label-info">@Html.DisplayFor(modelItem => item.Category.Name) </span>
+            </td>
+            <td>
+                by @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+
+            <td>
+                on @Html.DisplayFor(modelItem => item.CreationDate, "{0:dd/MM/YYYY hh:mm:ss tt}")
+            </td>
+        </tr>
+    }
+
+</table>

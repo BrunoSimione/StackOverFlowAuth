@@ -1,0 +1,110 @@
+﻿@using StackOverFlowAuth.Models
+@model StackOverFlowAuth.Models.QuestionAnswer
+
+@{
+    ViewBag.Title = "AnswerQuestion";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<div>
+    <h2>@Html.DisplayFor(model => model.Question.QuestionName)</h2>
+    <div id="toprow" class="row align-middle">
+
+        <div class="col-lg-2">
+            <span class="label label-primary" style="background-color:royalblue; vertical-align: middle">@Html.DisplayFor(model => model.Question.Category.Name)</span>
+        </div>
+        <div class="col-lg-3">
+            <span style="color:royalblue">by @Html.DisplayFor(model => model.Question.User.Name) </span>
+        </div>
+        <div class="col-lg-3">
+            <span style="color:darkgreen">by @Html.DisplayFor(model => model.Question.CreationDate)</span>
+        </div>
+        <div class="col-lg-2">
+            @using (Html.BeginForm("QuestionVote", "Questions", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-group">
+
+
+                <span class="badge">@Html.DisplayFor(model => model.Question.VoteCount)</span> Votes
+                @if (Request.IsAuthenticated)
+                {
+                <button type="submit" value="upvote" id="upvote" name="submit" class="btn btn-link" onclick="location.href='@Url.Action("QuestionVote", "Questions")'">
+                    <span class="glyphicon glyphicon-triangle-top"></span>
+                </button>
+                <button type="submit" value="downvote" id="downvote" name="submit" class="btn btn-link" onclick="location.href='@Url.Action("QuestionVote", "Questions")'">
+                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                </button>
+                }
+
+                @Html.HiddenFor(x => x.Question.Id)
+            </div>
+            }
+
+        </div>
+        <div class="col-lg-2">
+            <span class="badge" style="background-color:darkgreen"> @Html.DisplayFor(model => model.Question.ViewCount) </span> Views
+        </div>
+        
+    </div>
+
+    <div>
+        <table id="answers" class="table">
+            @foreach (var item in Model.Question.Answers)
+            {
+                <tr>
+                    <td>
+                        <div id="answer">
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </div>
+                        <div>
+                            @if (item.User.Id == ViewBag.ID)
+                            {
+                                <a class="btn btn-info" href='@Url.Action("EditAnswer", "Questions", new { id = item.Id })'>Edit &raquo;</a>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            by @Html.DisplayFor(modelItem => item.User.Name)
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            on @Html.DisplayFor(modelItem => item.CreationDate)
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <div id="newAnswer">
+            @using (Html.BeginForm("AnswerQuestion", "Questions", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <h4>Add your answer</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Answer.Text, new { htmlAttributes = new { @class = "form-control", style = "Width:300px; height:100px;" } })
+                        @Html.ValidationMessageFor(model => model.Answer.Text, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(x => x.Question.Id)
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Answer" id="Submit" class="btn btn-primary" onclick="location.href='@Url.Action("AnswerQuestion", "Questions")'" />
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    </div>
+<p>
+    @Html.ActionLink("Back to list", "List", "Questions")
+</p>
