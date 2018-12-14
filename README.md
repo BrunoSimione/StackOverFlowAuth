@@ -12,6 +12,6 @@ Update-Database -ConfigurationTypeName StackOverFlowAuth.Migrations.ApplicationD
 Update-Database -ConfigurationTypeName StackOverFlowAuth.Migrations.QuestionAnswerContext.Configuration
 
 **Already created users:**
-Username/Email: john@john.com Password: Aa123456* Role: Admin
-Username/Email: mary@mary.com Password: Aa123456* Role: User
-Username/Email: mark@mark.com Password: Aa123456* Role: User
+- Username/Email: john@john.com Password: Aa123456* Role: Admin
+- Username/Email: mary@mary.com Password: Aa123456* Role: User
+- Username/Email: mark@mark.com Password: Aa123456* Role: User
