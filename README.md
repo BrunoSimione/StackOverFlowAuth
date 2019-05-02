@@ -1,5 +1,14 @@
-# StackOverFlowAuth
+# StackOverFlow
 
+This project is a study about ASP.Net MVC, Entity Framework, and Auth control. The idea is to simulate a Q/A website similar as StackOverFlow.
+
+### Technologies
+- ASP.NET MVC
+- Entity Framework
+- Razor
+- Auth Control
+
+### Extra Info
 **The project has Seeds to both Contexts (Data and Login/Security). Please, run the following commands before execute the project:**
 
 - Enable-Migrations -ContextTypeName ApplicationDbContext -MigrationsDirectory Migrations\ApplicationDbContext
