@@ -5,7 +5,7 @@ This project is a study about ASP.Net MVC, Entity Framework, and Auth control. T
 ### Technologies
 - ASP.NET MVC
 - Entity Framework
-- Razor
+- Razor, .NET, HTML
 - Auth Control
 
 ### Extra Info
